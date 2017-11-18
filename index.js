@@ -6,7 +6,7 @@ app.use(bodyParser.json())
 const port = process.env.PORT || 3100
 
 app.use(function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', 'http://localhost:8484')
+  res.header('Access-Control-Allow-Origin', 'http://localhost:8484, https://search.truewordsapp.com')
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, x-truewords-id')
   next()
 })
