@@ -1,0 +1,24 @@
+{
+  "name": "true-words-server",
+  "version": "1.0.0",
+  "description": "A server for True Words utilities",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "bible",
+    "nlp"
+  ],
+  "author": "Justin Wilkey",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "compromise": "^11.1.0",
+    "express": "^4.16.2",
+    "natural": "^0.5.4",
+    "node-wordnet": "^0.1.12",
+    "request": "^2.83.0",
+    "wndb-with-exceptions": "^3.0.2"
+  }
+}

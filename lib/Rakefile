@@ -1,0 +1,26 @@
+require 'json'
+
+desc "process topics text file"
+task :topics do
+  topics = Hash.new
+  topics['multiwords'] = Set.new
+  File.open("topics.txt", "r") do |f|
+    f.each_line do |line|
+      one, two, three = line.match(/(.*)\s([^\s]+)\s(\d+)\n/).captures
+      if !topics.key?(one[0])
+        topics[one[0]] = Hash.new
+      end
+      if !topics[one[0]].key?(one)
+        topics[one[0]][one] = []
+      end
+      if one.include?(' ')
+        topics['multiwords'].add(one)
+      end
+      topics[one[0]][one].push([two, three.to_i])
+    end
+  end
+  topics.each do |key, value|
+    json = key == 'multiwords' ? value.to_a.to_json : value.to_json
+    File.write("../topics/#{key}.json", json)
+  end
+end
