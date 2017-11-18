@@ -4,7 +4,8 @@
   "description": "A server for True Words utilities",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "start": "node index.js"
   },
   "keywords": [
     "bible",
