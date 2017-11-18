@@ -5,11 +5,14 @@ const app = express()
 app.use(bodyParser.json())
 const port = 3100
 
-app.use(function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*')
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+app.use(function (req, res, next) {
+  res.header('Access-Control-Allow-Origin', 'http://localhost:8484')
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, x-truewords-id')
   next()
 })
+
+const u = require('./utils/identify')
+app.all('*', u.identify)
 
 app.get('/stem/:query', (req, res) => {
   const natural = require('natural')
