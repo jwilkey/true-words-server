@@ -3,7 +3,7 @@ const bodyParser = require('body-parser')
 
 const app = express()
 app.use(bodyParser.json())
-const port = 3100
+const port = process.env.PORT || 3100
 
 app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', 'http://localhost:8484')
