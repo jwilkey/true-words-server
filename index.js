@@ -5,8 +5,13 @@ const app = express()
 app.use(bodyParser.json())
 const port = process.env.PORT || 3100
 
+const allowedOrigins = {
+  'http://localhost:8484/': 'http://localhost:8484',
+  'https://search.truewords.com/': 'https://search.truewordsapp.com'
+}
 app.use(function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', 'http://localhost:8484, https://search.truewordsapp.com')
+  const referer = req.get('Referer')
+  res.header('Access-Control-Allow-Origin', allowedOrigins[referer])
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, x-truewords-id')
   next()
 })
