@@ -17,6 +17,7 @@
   "dependencies": {
     "body-parser": "^1.18.2",
     "compromise": "^11.1.0",
+    "cors": "^2.8.4",
     "express": "^4.16.2",
     "natural": "^0.5.4",
     "node-wordnet": "^0.1.12",

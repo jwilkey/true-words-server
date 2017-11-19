@@ -1,20 +1,22 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+var cors = require('cors')
 
 const app = express()
 app.use(bodyParser.json())
 const port = process.env.PORT || 3100
 
-const allowedOrigins = {
-  'http://localhost:8484/': 'http://localhost:8484',
-  'https://search.truewords.com/': 'https://search.truewordsapp.com'
+var whitelist = ['http://localhost:8484', 'https://search.truewordsapp.com']
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
 }
-app.use(function (req, res, next) {
-  const referer = req.get('Referer')
-  res.header('Access-Control-Allow-Origin', allowedOrigins[referer])
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, x-truewords-id')
-  next()
-})
+app.use(cors(corsOptions))
 
 const u = require('./utils/identify')
 app.all('*', u.identify)
