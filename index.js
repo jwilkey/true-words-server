@@ -38,16 +38,10 @@ app.get('/lemma/:query', (req, res) => {
 })
 
 app.get('/search/:query', (req, res) => {
-  var request = require('request')
-  const dbtKey = '35e9e596933f2fe297b2c5ad0632d484'
-  const url = `http://dbt.io/text/search?v=2&key=${dbtKey}&query=${req.params.query}&dam_id=ENGESVN2ET&limit=1000`
-  request(url, (error, response, body) => {
-    if (!error && response.statusCode == 200) {
-      res.json(JSON.parse(body))
-    } else {
-      res.send(error)
-    }
-  })
+  const dbt = require('./services/dbt-service.js')
+  dbt.search(req.params.query)
+  .then(results => { res.json(results) })
+  .catch(error => { res.send(error) })
 })
 
 app.post('/cross-reference', (req, res) => {
@@ -75,6 +69,13 @@ app.get('/texts/:passages', (req, res) => {
       res.send(error)
     }
   })
+})
+
+app.get('/synonyms/:query', (req, res) => {
+  const synService = require('./services/synonym-service.js')
+  synService.loadSynonyms(req.params.query, req.query.pos)
+  .then(response => { res.json(response) })
+  .catch(error => { res.send(error) })
 })
 
 app.listen(port, () => console.log(`Listening on port ${port}`))
